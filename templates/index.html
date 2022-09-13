@@ -1,15 +1,16 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="static/style.css" />
+    <link rel="stylesheet" href="{% static 'style.css'%}?{% now "U" %}" /><!--?{% now "U" %}generats a random timestap everytime a reolad is made this allows css to update-->
     <link
       rel="stylesheet"
       href="./fontawesome-free-5.9.0-web/css/all.min.css"
     />
-    <title>Anagram Project</title>
+    <title>Anagram Machine</title>
   </head>
   <body>
     <!-- navbar  -->
@@ -22,9 +23,9 @@
           <li class="nav-items">
             <a href="#" class="navlinks">word list</a>
           </li>
-          <li class="nav-items">
+          {% comment %} <li class="nav-items">
             <a href="#" class="nav-btn">get the app</a>
-          </li>
+          </li> {% endcomment %}
         </div>
         <li class="nav-toggle" id="mobileMenu">
           <i class="fas fa-bars"></i>
@@ -35,58 +36,40 @@
     <!--hero section  -->
     <section class="hero-container row">
       <div class="hero-title">
-        Anagram
-        <span>solver</span>
+        Anagram 
+        <span>Machine</span>
       </div>
-      <p class="hero-text">find random words</p>
       <!-- search box section -->
 
       <div class="hero-search">
-        <input type="text" class="input" placeholder="search...." />
-        <div class="search-btn">
-          <i class="fas fa-search"></i>
-        </div>
-      </div>
 
+        <form method="post">
+          {% csrf_token %}
+            <input type="text" class="input" name="searched_word" placeholder="search...." />
+        </form>
+      </div>
       <!-- end of search box section -->
-      <!-- four buttons section -->
+      
+      <!-- start of output section -->
+      <ul class="results-section">
+        {% for word in words_list %}
+          <li class="words">{{word}}</li>
+        {% endfor %}
+      </ul>
+      <!-- end of output section -->
 
-      <div class="buttons">
-        <div class="btn-1">
-          <input type="text" class="btn-input" placeholder="Start.." />
-        </div>
-        <div class="btn-1">
-          <input type="text" class="btn-input" placeholder="End.." />
-        </div>
-        <div class="btn-1">
-          <input type="text" class="btn-input" placeholder="Contain.." />
-        </div>
-        <div class="btn-1">
-          <input type="text" class="btn-input" placeholder="Length.." />
-        </div>
-      </div>
-
-      <!-- end of four button section -->
     </section>
     <!-- end of hero section -->
     <footer class="footer row">
-      <!-- footer links -->
-      <div class="footer-links">
-        <a href="#" class="footer-link">advertising</a>
-        <a href="#" class="footer-link">about</a>
-        <a href="#" class="footer-link">business</a>
-        <a href="#" class="footer-link">setting</a>
-      </div>
-      <!-- end of footer links -->
       <!-- footer icons -->
       <div class="footer-icons">
-        <a href="https://www.twitter.com" target="_blank" class="footer-icon">
-          <ii class="fab fa-facebook"></ii>
+        <a href="https://twitter.com/JosephBusayo9"  class="footer-icon">
+          <ii class="fab fa-facebook"> <img class="icons" src="{% static 'img/twitter.png'%}"/> </ii>
         </a>
-        <a href="https://www.twitter.com" target="_blank" class="footer-icon">
-          <ii class="fab fa-squarespace"></ii>
+        <a href="https://github.com/JosephBusayo/JosephBusayo" target="_blank" class="footer-icon">
+          <ii class="fab fa-squarespace"> <img class="icons" src="{% static 'img/github.png'%}"/> </ii>
         </a>
-        <a href="https://www.twitter.com" target="_blank" class="footer-icon">
+        <a href="#" target="_blank" class="footer-icon">
           <ii class="fab fa-twitter"></ii>
         </a>
       </div>
