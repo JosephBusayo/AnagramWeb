@@ -1,8 +1,12 @@
 @import url('http://fonts.googleapis.com/css?family=lato:300,400|poppins&display=swap');
 
-body {
+body{
   font-family: 'poppins', sans-serif;
-  height: 100vh;
+  height: 100%;
+
+}
+html{
+  height: 100%;
 }
 * {
   margin: 0;
@@ -198,7 +202,7 @@ span {
 
 .results-section{
   box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
-  width: 25rem;
+  max-width: 32rem;
   margin-top: 20px;
   padding: 20px 20px;
   display: flex;
@@ -213,6 +217,7 @@ span {
   font-size: 2rem;
   padding: 10px;
 }
+
 /* mobile responsiveness */
 @media screen and (max-width: 664px) {
   .hero-title {
@@ -294,6 +299,7 @@ span {
     width: 100%;
     margin: 0 auto;
     text-align: center;
+    flex-grow: 3;
   }
   .results-section{
     width: 16rem;
@@ -315,7 +321,7 @@ span {
   padding-left: 2rem;
   padding-right: 2rem;
   margin_bottom: 0;
-  position: inherit;
+  position: sticky;
   bottom: 0;
   left: 0;
   right: 0;

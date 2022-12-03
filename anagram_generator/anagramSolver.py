@@ -1,18 +1,20 @@
 from itertools import permutations
 
 
-def load_words():
-    vowels = ('a', 'e', 'i', 'o', 'u', 'y')
-    with open('words_alpha.txt') as word_file:
-        all_words = set(word_file.read().split()) #set to remove duplicates
-        #remove words without vowels
-        english_words = [word for letter in vowels for word in all_words if letter in word]
-    return english_words
+
 
 class AnagramSolver :    
     def __init__(self, word):
-        self.word = word
+        self.word = word.lower()
 
+    def get_words(self):
+        file = open('words_alpha.txt', 'r')
+        content = file.read()
+        words_list =content.split('\n')
+        file.close()
+        temp_word_list = [ w for w in words_list if(2<len(w)) and (len(w)<=len(self.word)) ]
+        return temp_word_list
+        
     def permutate_string(self):
         res = []
         for i in range(3, len(self.word)+1):
@@ -21,11 +23,32 @@ class AnagramSolver :
         return perm
 
     def get_anagram(self):
-        valid_words = (load_words()) #removing possible duplicates
+        valid_words = (self.get_words()) 
         perm_list = (self.permutate_string())
         
-        #eleminating two letter words and words greater than length of the string
-        possible_words = [i for i in valid_words if (len(i) > 2) and (len(i) <= len(self.word)) ]
-        result = [i for i in perm_list if i in possible_words]
+        result = [word for word in perm_list if word in valid_words]
+        result = sorted(set(result))
+        return (result)
         
-        return (set(result))
+        
+        """ 
+            eleminating two letter words and words greater than length of the string
+            possible_words = [i for i in valid_words if (len(i) > 2) and (len(i) <= len(self.word)) ]
+            result = [i for i in perm_list if i in possible_words] 
+        """
+        
+""" def load_words():
+    vowels = ('a', 'e', 'i', 'o', 'u', 'y')
+    with open('words_alpha.txt') as word_file:
+        all_words = set(word_file.read().split()) #set to remove duplicates
+        #remove words without vowels
+        english_words = [word for letter in vowels for word in all_words if letter in word]
+    return english_words """
+    
+""" vowels = ('a', 'e', 'i', 'o', 'u', 'y')
+with open('words_alpha.txt') as word_file:
+    with open('new_file', 'w') as output:
+        for letter in vowels:
+            for word in word_file:
+                if letter in word:
+                    output.write(word) """
